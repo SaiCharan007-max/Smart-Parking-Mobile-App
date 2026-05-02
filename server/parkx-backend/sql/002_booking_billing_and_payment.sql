@@ -6,8 +6,23 @@ ALTER TABLE bookings
   ADD COLUMN IF NOT EXISTS payment_status VARCHAR(20) NOT NULL DEFAULT 'pending',
   ADD COLUMN IF NOT EXISTS paid_at TIMESTAMPTZ,
   ADD COLUMN IF NOT EXISTS duration_minutes INTEGER,
-  ADD COLUMN IF NOT EXISTS amount NUMERIC(10,2),
+  ADD COLUMN IF NOT EXISTS total_amount NUMERIC(10,2),
   ADD COLUMN IF NOT EXISTS pricing_rate_per_hour NUMERIC(10,2) NOT NULL DEFAULT 20.00;
+
+DO $$
+BEGIN
+  IF EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name = 'bookings' AND column_name = 'amount'
+  ) AND NOT EXISTS (
+    SELECT 1
+    FROM information_schema.columns
+    WHERE table_name = 'bookings' AND column_name = 'total_amount'
+  ) THEN
+    ALTER TABLE bookings RENAME COLUMN amount TO total_amount;
+  END IF;
+END $$;
 
 -- Ensure completed rows are marked correctly if exit_time already existed.
 UPDATE bookings

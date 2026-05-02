@@ -1,0 +1,17 @@
+services:
+  - type: web
+    name: parkx-backend
+    runtime: node
+    rootDir: server/parkx-backend
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: DEFAULT_RATE_PER_HOUR
+        value: "45"
+      - key: NODE_ENV
+        value: production

@@ -1,6 +1,8 @@
 import pool from "../config/db.js";
 
-const DEFAULT_RATE_PER_HOUR = Number(process.env.PARKING_RATE_PER_HOUR || 20);
+const DEFAULT_RATE_PER_HOUR = Number(
+  process.env.PARKING_RATE_PER_HOUR || process.env.DEFAULT_RATE_PER_HOUR || 20
+);
 const BOOKING_SELECT = `
   SELECT
     b.*,

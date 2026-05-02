@@ -26,6 +26,11 @@ npm install
 2) Configure environment (create .env)
 
 ```
+DATABASE_URL=postgresql://<user>:<password>@<host>/<database>?sslmode=require&channel_binding=require
+DB_SSL=true
+DB_CHANNEL_BINDING=true
+
+# Optional local fallback if DATABASE_URL is not set
 DB_HOST=localhost
 DB_PORT=5432
 DB_NAME=parkx
@@ -49,7 +54,7 @@ npm run dev   # nodemon
 npm start     # node app.js
 ```
 
-The server seeds slots on startup (areas a/b/c) and adds a deleted_at column to vehicles if missing. Health check: GET /api/health.
+The server prefers `DATABASE_URL` for hosted PostgreSQL providers such as Neon, and falls back to `DB_HOST`/`DB_PORT`/`DB_NAME`/`DB_USER`/`DB_PASSWORD` only when `DATABASE_URL` is unset. The server seeds slots on startup (areas a/b/c) and adds a deleted_at column to vehicles if missing. Health check: GET /api/health.
 
 ## Frontend Setup (Expo)
 

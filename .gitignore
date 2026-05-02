@@ -1,0 +1,33 @@
+# Dependencies
+**/node_modules/
+
+# Environment files and secrets
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Expo / frontend build output
+**/.expo/
+**/dist/
+**/web-build/
+**/expo-env.d.ts
+**/.metro-health-check*
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Local server runtime files
+server/parkx-backend/server.out.log
+server/parkx-backend/server.err.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+
+# Backup of embedded repository metadata during flattening
+.embedded-git/
