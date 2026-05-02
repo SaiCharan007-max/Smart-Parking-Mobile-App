@@ -314,6 +314,7 @@ const styles = StyleSheet.create({
   },
   modalView: {
     width: "90%",
+    maxWidth: 400,
     padding: 24,
   },
   modalTitle: {
