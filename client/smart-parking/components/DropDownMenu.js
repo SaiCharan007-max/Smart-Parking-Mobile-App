@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
-  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import useSession from "../hooks/useSession";
@@ -54,10 +53,6 @@ export default function DropDownMenu({ visible, onClose }) {
     return null;
   }
 
-  if (Platform.OS === "web") {
-    return <View style={[styles.menu, styles.webMenu]}>{menuItems}</View>;
-  }
-
   return (
     <Modal transparent visible animationType="fade">
       <Pressable style={styles.overlay} onPress={onClose}>
@@ -87,16 +82,6 @@ const createStyles = (theme) => StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     elevation: 6,
-  },
-  webMenu: {
-    position: "absolute",
-    top: 52,
-    right: 0,
-    zIndex: 50,
-    shadowColor: "#000000",
-    shadowOpacity: 0.18,
-    shadowRadius: 16,
-    shadowOffset: { width: 0, height: 10 },
   },
 
   item: {
