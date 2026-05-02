@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   Modal,
   Pressable,
+  Platform,
 } from "react-native";
 import { useRouter } from "expo-router";
 import useSession from "../hooks/useSession";
@@ -29,26 +30,39 @@ export default function DropDownMenu({ visible, onClose }) {
   }
 
   const styles = React.useMemo(() => createStyles(theme), [theme]);
+  const menuItems = (
+    <>
+      <TouchableOpacity style={styles.item} onPress={() => { toggleMode(); onClose(); }}>
+        <Text style={styles.text}>Switch to {mode === "dark" ? "Light" : "Dark"} Mode</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={() => goTo("/profile")}>
+        <Text style={styles.text}>Profile</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={() => goTo("/history")}>
+        <Text style={styles.text}>History</Text>
+      </TouchableOpacity>
+
+      <TouchableOpacity style={styles.item} onPress={handleLogout}>
+        <Text style={styles.text}>Logout</Text>
+      </TouchableOpacity>
+    </>
+  );
+
+  if (!visible) {
+    return null;
+  }
+
+  if (Platform.OS === "web") {
+    return <View style={[styles.menu, styles.webMenu]}>{menuItems}</View>;
+  }
 
   return (
-    <Modal transparent visible={visible} animationType="fade">
+    <Modal transparent visible animationType="fade">
       <Pressable style={styles.overlay} onPress={onClose}>
         <View style={styles.menu}>
-          <TouchableOpacity style={styles.item} onPress={() => { toggleMode(); onClose(); }}>
-            <Text style={styles.text}>Switch to {mode === "dark" ? "Light" : "Dark"} Mode</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item} onPress={() => goTo("/profile")}>
-            <Text style={styles.text}>Profile</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item} onPress={() => goTo("/history")}>
-            <Text style={styles.text}>History</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.item} onPress={handleLogout}>
-            <Text style={styles.text}>Logout</Text>
-          </TouchableOpacity>
+          {menuItems}
         </View>
       </Pressable>
     </Modal>
@@ -73,6 +87,16 @@ const createStyles = (theme) => StyleSheet.create({
     borderWidth: 1,
     borderColor: theme.colors.border,
     elevation: 6,
+  },
+  webMenu: {
+    position: "absolute",
+    top: 52,
+    right: 0,
+    zIndex: 50,
+    shadowColor: "#000000",
+    shadowOpacity: 0.18,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 10 },
   },
 
   item: {

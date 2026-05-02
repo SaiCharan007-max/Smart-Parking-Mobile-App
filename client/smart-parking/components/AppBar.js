@@ -37,7 +37,7 @@ export default function AppBar() {
                 <Text style={styles.subtext}>Smart Parking</Text>
             </TouchableOpacity>
             <View style={styles.right}>
-                <TouchableOpacity style={styles.menuButton} onPress={() => setMenuVisible(true)}>
+                <TouchableOpacity style={styles.menuButton} onPress={() => setMenuVisible((current) => !current)}>
                     <Ionicons name="ellipsis-vertical" size={22} color={theme.colors.text} />
                 </TouchableOpacity>
 
@@ -73,9 +73,11 @@ const createStyles = (theme) => StyleSheet.create({
     },
     right: {
         flex: 1,
+        position: "relative",
         flexDirection: "row",
         justifyContent: "flex-end",
         alignItems: "center",
+        zIndex: 20,
     },
     menuButton: {
         width: 36,

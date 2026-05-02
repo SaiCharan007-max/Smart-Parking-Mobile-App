@@ -31,6 +31,8 @@ function Shell() {
             backgroundColor: isWeb ? theme.colors.surfaceStrong : theme.colors.background,
             paddingVertical: isWeb ? 24 : 0,
             paddingHorizontal: isWeb ? 12 : 0,
+            alignItems: isWeb ? "center" : undefined,
+            justifyContent: isWeb ? "center" : undefined,
           },
         ]}
       >
@@ -38,11 +40,14 @@ function Shell() {
           style={[
             styles.shell,
             isWeb
-              ? {
-                  backgroundColor: theme.colors.background,
-                  borderColor: theme.colors.border,
-                  shadowColor: "#000000",
-                }
+              ? [
+                  styles.shellWeb,
+                  {
+                    backgroundColor: theme.colors.background,
+                    borderColor: theme.colors.border,
+                    shadowColor: "#000000",
+                  },
+                ]
               : styles.shellNative,
           ]}
         >
@@ -77,7 +82,6 @@ const styles = StyleSheet.create({
   shell: {
     flex: 1,
     width: "100%",
-    maxWidth: 430,
     alignSelf: "center",
     overflow: "hidden",
     borderWidth: 1,
@@ -86,8 +90,20 @@ const styles = StyleSheet.create({
     shadowRadius: 20,
     shadowOffset: { width: 0, height: 12 },
   },
+  shellWeb: {
+    flex: 0,
+    width: "100%",
+    maxWidth: 408,
+    minHeight: 860,
+    height: "100%",
+    maxHeight: 920,
+    borderRadius: 36,
+  },
   shellNative: {
     maxWidth: undefined,
+    width: undefined,
+    minHeight: undefined,
+    maxHeight: undefined,
     borderWidth: 0,
     borderRadius: 0,
     shadowOpacity: 0,
