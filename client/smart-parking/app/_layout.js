@@ -29,8 +29,7 @@ function Shell() {
           styles.root,
           {
             backgroundColor: isWeb ? theme.colors.surfaceStrong : theme.colors.background,
-            paddingVertical: isWeb ? 24 : 0,
-            paddingHorizontal: isWeb ? 12 : 0,
+            paddingVertical: isWeb ? "2%" : 0,
             alignItems: isWeb ? "center" : undefined,
             justifyContent: isWeb ? "center" : undefined,
           },
@@ -58,6 +57,7 @@ function Shell() {
               screenOptions={{
                 headerShown: false,
                 contentStyle: { backgroundColor: theme.colors.background },
+                animation: "none",
               }}
             />
           </SafeAreaView>
@@ -78,36 +78,27 @@ export default function RootLayout() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
+    height: "100vh",
   },
   shell: {
     flex: 1,
     width: "100%",
     alignSelf: "center",
     overflow: "hidden",
-    borderWidth: 1,
-    borderRadius: 30,
-    shadowOpacity: 0.18,
-    shadowRadius: 20,
-    shadowOffset: { width: 0, height: 12 },
   },
   shellWeb: {
-    flex: 0,
     width: "100%",
-    maxWidth: 408,
-    minHeight: 860,
+    maxWidth: 480,
     height: "100%",
     maxHeight: 920,
-    borderRadius: 36,
+    borderWidth: 1,
+    borderRadius: 24,
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
   },
   shellNative: {
-    maxWidth: undefined,
-    width: undefined,
-    minHeight: undefined,
-    maxHeight: undefined,
-    borderWidth: 0,
-    borderRadius: 0,
-    shadowOpacity: 0,
-    shadowRadius: 0,
-    shadowOffset: { width: 0, height: 0 },
+    width: "100%",
+    height: "100%",
   },
 });
